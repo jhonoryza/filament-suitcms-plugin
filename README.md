@@ -6,7 +6,7 @@ This plugin is built on top of [Spatie's Permission](https://spatie.be/docs/lara
 
 Provides Resources for Roles and Permissions
 
-## Depedencies
+## Dependencies
 
 you need to install this library to use this package
 
