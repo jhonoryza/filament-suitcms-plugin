@@ -1,0 +1,7 @@
+<?php
+
+return [
+    \Fajar\Filament\Suitcms\Models\Admin::class => ['view-any', 'view', 'create', 'update', 'delete', 'restore', 'force-delete'],
+    \Fajar\Filament\Suitcms\Models\Role::class => ['view-any', 'view', 'create', 'update', 'delete'],
+    \Fajar\Filament\Suitcms\Models\Permission::class => ['view-any', 'view', 'create', 'update', 'delete'],
+];

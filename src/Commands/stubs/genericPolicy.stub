@@ -1,0 +1,65 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ namespacedModel }};
+use {{ namespacedUserModel }};
+
+class {{ class }}
+{
+    /**
+     * Determine whether the user can view any models.
+     */
+    public function viewAny({{ user }} $admin): bool
+    {
+        return $admin->hasPermissionTo('{{ viewAnyPermission }}');
+    }
+
+    /**
+     * Determine whether the user can view the model.
+     */
+    public function view({{ user }} $admin, {{ model }} ${{ modelVariable }}): bool
+    {
+        return $admin->hasPermissionTo('{{ viewPermission }}');
+    }
+
+    /**
+     * Determine whether the user can create models.
+     */
+    public function create({{ user }} $admin): bool
+    {
+        return $admin->hasPermissionTo('{{ createPermission }}');
+    }
+
+    /**
+     * Determine whether the user can update the model.
+     */
+    public function update({{ user }} $admin, {{ model }} ${{ modelVariable }}): bool
+    {
+        return $admin->hasPermissionTo('{{ updatePermission }}');
+    }
+
+    /**
+     * Determine whether the user can delete the model.
+     */
+    public function delete({{ user }} $admin, {{ model }} ${{ modelVariable }}): bool
+    {
+        return $admin->hasPermissionTo('{{ deletePermission }}');
+    }
+
+    /**
+     * Determine whether the user can restore the model.
+     */
+    public function restore({{ user }} $admin, {{ model }} ${{ modelVariable }}): bool
+    {
+        return $admin->checkPermissionTo('{{ restorePermission }}');
+    }
+
+    /**
+     * Determine whether the user can permanently delete the model.
+     */
+    public function forceDelete({{ user }} $admin, {{ model }} ${{ modelVariable }}): bool
+    {
+        return $admin->checkPermissionTo('{{ forceDeletePermission }}');
+    }
+}
