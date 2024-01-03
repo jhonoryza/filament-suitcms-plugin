@@ -10,8 +10,11 @@ Provides Resources for Roles and Permissions
 
 you need to install this library to use this package
 
-- `composer require filament/filament`
-- `composer require spatie/laravel-permission`
+```bash
+composer require filament/filament
+composer require spatie/laravel-permission
+php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
+```
 
 ## Installation
 
@@ -25,7 +28,9 @@ php artisan migrate
 
 now you can create filament panel builder using this command :
 
-`php artisan filament:install --panels`
+```bash 
+php artisan filament:install --panels
+```
 
 then open `PanelProvider` add this line
 
