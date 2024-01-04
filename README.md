@@ -24,7 +24,7 @@ You can install the package via composer:
 composer require jhonoryza/filament-suitcms
 ```
 
-install the package
+install filament-suitcms
 
 ```bash
 php artisan filament-suitcms:install
