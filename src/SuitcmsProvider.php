@@ -24,7 +24,7 @@ class SuitcmsProvider extends PackageServiceProvider
         Admin::class => AdminPolicy::class,
         Role::class => RolePolicy::class,
         Permission::class => PermissionPolicy::class,
-        Setting::class => SettingPolicy::class
+        Setting::class => SettingPolicy::class,
     ];
 
     public function configurePackage(Package $package): void
@@ -43,7 +43,7 @@ class SuitcmsProvider extends PackageServiceProvider
                 SyncCmsPermission::class,
                 GenerateCmsPolicy::class,
                 GenerateNewSuperAdmin::class,
-                GenerateSetting::class
+                GenerateSetting::class,
             ])
             ->hasInstallCommand(function (InstallCommand $command) {
                 $command
@@ -54,7 +54,7 @@ class SuitcmsProvider extends PackageServiceProvider
                         $com->call('cms:admin-generate', [
                             'name' => 'admin',
                             'email' => 'admin@admin.com',
-                            'password' => 'password'
+                            'password' => 'password',
                         ]);
                         $com->call('cms:setting-generate');
                     });
@@ -68,7 +68,7 @@ class SuitcmsProvider extends PackageServiceProvider
         $this->mergeConfig('cms/auth-passwords.php', 'auth.passwords');
         $this->mergeConfig('cms/permissions.php', 'cms/permissions');
 
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'filament-suitcms');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'filament-suitcms');
 
         return parent::register();
     }
@@ -78,7 +78,7 @@ class SuitcmsProvider extends PackageServiceProvider
         if (file_exists(config_path($configPath))) {
             $this->mergeConfigFrom(config_path($configPath), $packagePath);
         } else {
-            $this->mergeConfigFrom(__DIR__ . '/../config/' . $configPath, $packagePath);
+            $this->mergeConfigFrom(__DIR__.'/../config/'.$configPath, $packagePath);
         }
     }
 

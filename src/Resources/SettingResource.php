@@ -2,8 +2,8 @@
 
 namespace Fajar\Filament\Suitcms\Resources;
 
-use Fajar\Filament\Suitcms\Resources\SettingResource\Pages;
 use Fajar\Filament\Suitcms\Models\Setting;
+use Fajar\Filament\Suitcms\Resources\SettingResource\Pages;
 use Filament\Forms;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Select;
@@ -30,7 +30,7 @@ class SettingResource extends Resource
                     ->options([
                         'text' => 'text',
                         'number' => 'number',
-                        'textarea' => 'textarea'
+                        'textarea' => 'textarea',
                     ])->columnSpanFull()
                     ->live()
                     ->afterStateUpdated(fn (Select $component) => $component
@@ -54,7 +54,7 @@ class SettingResource extends Resource
                             Forms\Components\TextInput::make('value')
                                 ->numeric()
                                 ->maxLength(65535)
-                                ->columnSpanFull()
+                                ->columnSpanFull(),
                         ],
                         'textarea' => [
                             Forms\Components\Textarea::make('value')

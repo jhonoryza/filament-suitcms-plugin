@@ -27,7 +27,7 @@ class SuitcmsToolkit implements Plugin
             AdminResource::class,
             RoleResource::class,
             PermissionResource::class,
-            SettingResource::class
+            SettingResource::class,
         ];
         $panel
             ->authGuard('cms')

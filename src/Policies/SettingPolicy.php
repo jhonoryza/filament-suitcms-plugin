@@ -2,8 +2,8 @@
 
 namespace Fajar\Filament\Suitcms\Policies;
 
-use Fajar\Filament\Suitcms\Models\Setting;
 use Fajar\Filament\Suitcms\Models\Admin;
+use Fajar\Filament\Suitcms\Models\Setting;
 
 class SettingPolicy
 {
