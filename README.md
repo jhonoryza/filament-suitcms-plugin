@@ -38,7 +38,7 @@ then open `PanelProvider` add this line
     public function panel(Panel $panel): Panel
     {
         return $panel
-            ->plugin(new SuitcmsToolkit()); // add this line
+            ->plugin(SuitcmsToolkit::make()); // add this line
     }
 ```
 
