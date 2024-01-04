@@ -7,7 +7,6 @@ use Fajar\Filament\Suitcms\Models\Permission;
 use Fajar\Filament\Suitcms\Models\Role;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Hash;
 use function Laravel\Prompts\password;
 use function Laravel\Prompts\text;
 
@@ -55,10 +54,10 @@ class GenerateNewSuperAdmin extends Command
                 },
             ),
 
-            'password' => Hash::make($this->options['password'] ?? password(
+            'password' => $this->options['password'] ?? password(
                 label: 'Password',
                 required: true,
-            )),
+            ),
         ];
     }
 
