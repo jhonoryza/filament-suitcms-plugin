@@ -30,12 +30,13 @@ install filament-suitcms
 php artisan filament-suitcms:install
 ```
 
-this command will run :
+this command will do :
 
-1. ask to run migration, if you get asked `Would you like to run the migrations now?` choose `yes`
-2. sync permission data
-3. generate default super admin user, default admin user is `admin@admin.com` with password : `password`
-4. generate default setting data
+1. publish filament-suitcms config
+2. ask to run migration, if you get asked `Would you like to run the migrations now?` choose `yes`
+3. sync permission data
+4. generate default super admin user, default admin user is `admin@admin.com` with password : `password`
+5. generate default setting data
 
 now you can create filament panel builder using this command :
 
