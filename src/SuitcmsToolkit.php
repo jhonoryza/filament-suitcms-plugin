@@ -10,7 +10,7 @@ use Filament\Panel;
 
 class SuitcmsToolkit implements Plugin
 {
-    public function make(): self
+    public static function make(): self
     {
         return new self();
     }
@@ -22,14 +22,15 @@ class SuitcmsToolkit implements Plugin
 
     public function register(Panel $panel): void
     {
+        $resources = [
+            AdminResource::class,
+            RoleResource::class,
+            PermissionResource::class,
+        ];
         $panel
             ->authGuard('cms')
             ->authPasswordBroker('cms')
-            ->resources([
-                AdminResource::class,
-                RoleResource::class,
-                PermissionResource::class
-            ])
+            ->resources($resources)
             ->font('Quicksand')
             ->profile(AdminResource\Pages\EditProfile::class);
     }
