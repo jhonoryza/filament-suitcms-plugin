@@ -28,7 +28,7 @@ php artisan migrate
 
 now you can create filament panel builder using this command :
 
-```bash 
+```bash
 php artisan filament:install --panels
 ```
 
@@ -55,6 +55,7 @@ php artisan cms:admin-generate
 add new permission map in `config/cms/permission.php` file
 
 You can generate Permissions by running
+
 ```bash
 php artisan cms:permission-sync
 ```
@@ -65,6 +66,10 @@ php artisan cms:permission-sync
 php artisan cms:policy-generate
 ```
 
+## Recommended Package for easily generate model, factory and migration
+
+- [https://blueprint.laravelshift.com/docs/installation/](https://blueprint.laravelshift.com/docs/installation/)
+
 ## Security
 
 If you discover any security related issues, please create an issue.
@@ -72,4 +77,3 @@ If you discover any security related issues, please create an issue.
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
-
