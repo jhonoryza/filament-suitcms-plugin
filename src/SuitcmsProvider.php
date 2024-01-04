@@ -47,27 +47,23 @@ class SuitcmsProvider extends PackageServiceProvider
 
     public function register()
     {
-        if (file_exists(config_path('cms/auth-guards.php'))) {
-            $this->mergeConfigFrom(config_path('cms/auth-guards.php'), 'auth.guards');
-        } else {
-            $this->mergeConfigFrom(__DIR__.'/../config/cms/auth-guards.php', 'auth.guards');
-        }
-
-        if (file_exists(config_path('cms/auth-providers.php'))) {
-            $this->mergeConfigFrom(config_path('cms/auth-providers.php'), 'auth.providers');
-        } else {
-            $this->mergeConfigFrom(__DIR__.'/../config/cms/auth-providers.php', 'auth.providers');
-        }
-
-        if (file_exists(config_path('cms/auth-passwords.php'))) {
-            $this->mergeConfigFrom(config_path('cms/auth-passwords.php'), 'auth.passwords');
-        } else {
-            $this->mergeConfigFrom(__DIR__.'/../config/cms/auth-passwords.php', 'auth.passwords');
-        }
+        $this->mergeConfig('cms/auth-guards.php', 'auth.guards');
+        $this->mergeConfig('cms/auth-providers.php', 'auth.providers');
+        $this->mergeConfig('cms/auth-passwords.php', 'auth.passwords');
+        $this->mergeConfig('cms/permissions.php', 'cms/permissions');
 
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'filament-suitcms');
 
         return parent::register();
+    }
+
+    protected function mergeConfig(string $configPath, string $packagePath): void
+    {
+        if (file_exists(config_path($configPath))) {
+            $this->mergeConfigFrom(config_path($configPath), $packagePath);
+        } else {
+            $this->mergeConfigFrom(__DIR__ . '/../config/' . $configPath, $packagePath);
+        }
     }
 
     public function boot()
