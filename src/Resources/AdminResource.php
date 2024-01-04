@@ -11,6 +11,8 @@ use Filament\Forms;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class AdminResource extends Resource
 {
@@ -47,8 +49,9 @@ class AdminResource extends Resource
                 Forms\Components\Select::make('role')
                     ->required()
                     ->relationship('roles', 'name')
-                    ->preload()
                     ->multiple()
+                    ->searchable()
+                    ->preload()
                     ->maxItems(1)
             ])->columns(1);
     }
@@ -76,11 +79,26 @@ class AdminResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\RestoreAction::make(),
+                Tables\Actions\ForceDeleteAction::make()
+                    ->using(function (Admin $record) {
+                        $record->removeRole($record->roles->first());
+                        $record->forceDelete();
+                    }),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
+            ]);
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->withoutGlobalScopes([
+                SoftDeletingScope::class,
             ]);
     }
 
