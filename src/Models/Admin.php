@@ -12,9 +12,9 @@ use Spatie\Permission\Traits\HasRoles;
 
 class Admin extends Authenticatable implements FilamentUser
 {
+    use HasFactory;
     use HasRoles;
     use Notifiable;
-    use HasFactory;
     use SoftDeletes;
 
     public function canAccessPanel(Panel $panel): bool
@@ -33,6 +33,6 @@ class Admin extends Authenticatable implements FilamentUser
     ];
 
     protected $casts = [
-        'password' => 'hashed'
+        'password' => 'hashed',
     ];
 }

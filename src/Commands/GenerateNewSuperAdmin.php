@@ -7,6 +7,7 @@ use Fajar\Filament\Suitcms\Models\Permission;
 use Fajar\Filament\Suitcms\Models\Role;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
+
 use function Laravel\Prompts\password;
 use function Laravel\Prompts\text;
 
@@ -33,7 +34,7 @@ class GenerateNewSuperAdmin extends Command
             'password' => $data['password'],
         ]);
         $super->assignRole($superRole);
-        $this->info('Super Admin Created : ' . $super->email);
+        $this->info('Super Admin Created : '.$super->email);
     }
 
     protected function getUserData(): array
@@ -48,7 +49,7 @@ class GenerateNewSuperAdmin extends Command
                 label: 'Email address',
                 required: true,
                 validate: fn (string $email): ?string => match (true) {
-                    !filter_var($email, FILTER_VALIDATE_EMAIL) => 'The email address must be valid.',
+                    ! filter_var($email, FILTER_VALIDATE_EMAIL) => 'The email address must be valid.',
                     Admin::where('email', $email)->exists() => 'A user with this email address already exists',
                     default => null,
                 },
@@ -60,5 +61,4 @@ class GenerateNewSuperAdmin extends Command
             ),
         ];
     }
-
 }

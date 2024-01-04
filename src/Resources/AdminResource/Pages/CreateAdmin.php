@@ -4,9 +4,9 @@ namespace Fajar\Filament\Suitcms\Resources\AdminResource\Pages;
 
 use Fajar\Filament\Suitcms\Resources\AdminResource;
 use Filament\Resources\Pages\CreateRecord;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Auth\Events\Registered;
 
 class CreateAdmin extends CreateRecord
 {
@@ -19,6 +19,7 @@ class CreateAdmin extends CreateRecord
             SendEmailVerificationNotification::class
         );
         event(new Registered($model));
+
         return $model;
     }
 }

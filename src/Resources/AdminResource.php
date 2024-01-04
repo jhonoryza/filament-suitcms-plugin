@@ -6,8 +6,8 @@ use Fajar\Filament\Suitcms\Models\Admin;
 use Fajar\Filament\Suitcms\Resources\AdminResource\Pages\CreateAdmin;
 use Fajar\Filament\Suitcms\Resources\AdminResource\Pages\EditAdmin;
 use Fajar\Filament\Suitcms\Resources\AdminResource\Pages\ListAdmins;
-use Filament\Forms\Form;
 use Filament\Forms;
+use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -21,7 +21,6 @@ class AdminResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-user';
 
     protected static ?string $navigationGroup = 'CMS User';
-
 
     public static function form(Form $form): Form
     {
@@ -52,7 +51,7 @@ class AdminResource extends Resource
                     ->multiple()
                     ->searchable()
                     ->preload()
-                    ->maxItems(1)
+                    ->maxItems(1),
             ])->columns(1);
     }
 

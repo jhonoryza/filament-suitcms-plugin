@@ -2,14 +2,14 @@
 
 namespace Fajar\Filament\Suitcms\Resources;
 
-use Fajar\Filament\Suitcms\Resources\RoleResource\Pages;
 use Fajar\Filament\Suitcms\Forms\Components\CheckboxPermissionRole;
 use Fajar\Filament\Suitcms\Models\Role;
+use Fajar\Filament\Suitcms\Resources\RoleResource\Pages;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables\Table;
 use Filament\Tables;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 
@@ -47,9 +47,10 @@ class RoleResource extends Resource
                                     ->where('guard_name', 'cms');
                             })
                         ->bulkToggleable()
-                        ->gridDirection('row')
-                ])
+                        ->gridDirection('row'),
+                ]),
         ];
+
         return $form
             ->columns(1)
             ->schema($forms);
@@ -83,7 +84,7 @@ class RoleResource extends Resource
         return [
             'index' => Pages\ListRoles::route('/'),
             'create' => Pages\CreateRole::route('/create'),
-            'edit' => Pages\EditRole::route('{record}/edit')
+            'edit' => Pages\EditRole::route('{record}/edit'),
         ];
     }
 }

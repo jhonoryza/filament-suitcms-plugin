@@ -20,7 +20,7 @@ class SuitcmsProvider extends PackageServiceProvider
     protected $policies = [
         Admin::class => AdminPolicy::class,
         Role::class => RolePolicy::class,
-        Permission::class => PermissionPolicy::class
+        Permission::class => PermissionPolicy::class,
     ];
 
     public function configurePackage(Package $package): void
@@ -29,19 +29,21 @@ class SuitcmsProvider extends PackageServiceProvider
             ->name('filament-suitcms')
             ->hasMigrations([
                 'create_admins_table',
+                'create_settings_table',
                 'create_admin_password_reset_tokens',
             ])
+            ->runsMigrations()
             ->hasConfigFile(['cms/auth-guards', 'cms/auth-providers', 'cms/auth-passwords', 'cms/permissions'])
             ->hasViews()
-            ->hasInstallCommand(function(InstallCommand $command) {
+            ->hasInstallCommand(function (InstallCommand $command) {
                 $command
                     ->publishConfigFile()
-                    ->publishMigrations();
+                    ->askToRunMigrations();
             })
             ->hasCommands([
                 SyncCmsPermission::class,
                 GenerateCmsPolicy::class,
-                GenerateNewSuperAdmin::class
+                GenerateNewSuperAdmin::class,
             ]);
     }
 
@@ -62,7 +64,7 @@ class SuitcmsProvider extends PackageServiceProvider
         if (file_exists(config_path($configPath))) {
             $this->mergeConfigFrom(config_path($configPath), $packagePath);
         } else {
-            $this->mergeConfigFrom(__DIR__ . '/../config/' . $configPath, $packagePath);
+            $this->mergeConfigFrom(__DIR__.'/../config/'.$configPath, $packagePath);
         }
     }
 

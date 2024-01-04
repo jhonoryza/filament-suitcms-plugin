@@ -2,7 +2,6 @@
 
 namespace Fajar\Filament\Suitcms\Policies;
 
-
 use Fajar\Filament\Suitcms\Models\Admin;
 
 class AdminPolicy
