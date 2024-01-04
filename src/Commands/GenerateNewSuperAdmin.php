@@ -6,7 +6,6 @@ use Fajar\Filament\Suitcms\Models\Admin;
 use Fajar\Filament\Suitcms\Models\Permission;
 use Fajar\Filament\Suitcms\Models\Role;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Artisan;
 
 use function Laravel\Prompts\password;
 use function Laravel\Prompts\text;
@@ -16,15 +15,14 @@ class GenerateNewSuperAdmin extends Command
     protected $description = 'Create a new admin user';
 
     protected $signature = 'cms:admin-generate
-                            {--name= : The name of the user}
-                            {--email= : A valid and unique email address}
-                            {--password= : The password for the user (min. 8 characters)}';
+                            {name? : The name of the user}
+                            {email? : A valid and unique email address}
+                            {password? : The password for the user (min. 8 characters)}';
 
     public function handle(): void
     {
         $data = $this->getUserData();
 
-        Artisan::call('cms:permission-sync -n');
         $superRole = Role::firstOrCreate(['name' => 'superadmin', 'guard_name' => 'cms']);
         $superRole->syncPermissions(Permission::all());
 
@@ -34,19 +32,21 @@ class GenerateNewSuperAdmin extends Command
             'password' => $data['password'],
         ]);
         $super->assignRole($superRole);
-        $this->info('Super Admin Created : '.$super->email);
+        $this->info('Super Admin created with mail : '.$super->email);
     }
 
     protected function getUserData(): array
     {
         return [
-            'name' => $this->options['name'] ?? text(
+            'name' => $this->argument('name') ?? text(
                 label: 'Name',
                 required: true,
+                default: 'admin'
             ),
 
-            'email' => $this->options['email'] ?? text(
+            'email' => $this->argument('email') ?? text(
                 label: 'Email address',
+                default: 'admin@admin.com',
                 required: true,
                 validate: fn (string $email): ?string => match (true) {
                     ! filter_var($email, FILTER_VALIDATE_EMAIL) => 'The email address must be valid.',
@@ -55,7 +55,7 @@ class GenerateNewSuperAdmin extends Command
                 },
             ),
 
-            'password' => $this->options['password'] ?? password(
+            'password' => $this->argument('password') ?? password(
                 label: 'Password',
                 required: true,
             ),

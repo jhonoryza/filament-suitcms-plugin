@@ -4,13 +4,16 @@ namespace Fajar\Filament\Suitcms;
 
 use Fajar\Filament\Suitcms\Commands\GenerateCmsPolicy;
 use Fajar\Filament\Suitcms\Commands\GenerateNewSuperAdmin;
+use Fajar\Filament\Suitcms\Commands\GenerateSetting;
 use Fajar\Filament\Suitcms\Commands\SyncCmsPermission;
 use Fajar\Filament\Suitcms\Models\Admin;
 use Fajar\Filament\Suitcms\Models\Permission;
 use Fajar\Filament\Suitcms\Models\Role;
+use Fajar\Filament\Suitcms\Models\Setting;
 use Fajar\Filament\Suitcms\Policies\AdminPolicy;
 use Fajar\Filament\Suitcms\Policies\PermissionPolicy;
 use Fajar\Filament\Suitcms\Policies\RolePolicy;
+use Fajar\Filament\Suitcms\Policies\SettingPolicy;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
@@ -21,6 +24,7 @@ class SuitcmsProvider extends PackageServiceProvider
         Admin::class => AdminPolicy::class,
         Role::class => RolePolicy::class,
         Permission::class => PermissionPolicy::class,
+        Setting::class => SettingPolicy::class
     ];
 
     public function configurePackage(Package $package): void
@@ -35,16 +39,26 @@ class SuitcmsProvider extends PackageServiceProvider
             ->runsMigrations()
             ->hasConfigFile(['cms/auth-guards', 'cms/auth-providers', 'cms/auth-passwords', 'cms/permissions'])
             ->hasViews()
-            ->hasInstallCommand(function (InstallCommand $command) {
-                $command
-                    ->publishConfigFile()
-                    ->askToRunMigrations();
-            })
             ->hasCommands([
                 SyncCmsPermission::class,
                 GenerateCmsPolicy::class,
                 GenerateNewSuperAdmin::class,
-            ]);
+                GenerateSetting::class
+            ])
+            ->hasInstallCommand(function (InstallCommand $command) {
+                $command
+                    ->publishConfigFile()
+                    ->askToRunMigrations()
+                    ->endWith(function (InstallCommand $com) {
+                        $com->call('cms:permission-sync -n');
+                        $com->call('cms:admin-generate', [
+                            'name' => 'admin',
+                            'email' => 'admin@admin.com',
+                            'password' => 'password'
+                        ]);
+                        $com->call('cms:setting-generate');
+                    });
+            });
     }
 
     public function register()
@@ -54,7 +68,7 @@ class SuitcmsProvider extends PackageServiceProvider
         $this->mergeConfig('cms/auth-passwords.php', 'auth.passwords');
         $this->mergeConfig('cms/permissions.php', 'cms/permissions');
 
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'filament-suitcms');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'filament-suitcms');
 
         return parent::register();
     }
@@ -64,7 +78,7 @@ class SuitcmsProvider extends PackageServiceProvider
         if (file_exists(config_path($configPath))) {
             $this->mergeConfigFrom(config_path($configPath), $packagePath);
         } else {
-            $this->mergeConfigFrom(__DIR__.'/../config/'.$configPath, $packagePath);
+            $this->mergeConfigFrom(__DIR__ . '/../config/' . $configPath, $packagePath);
         }
     }
 
