@@ -42,12 +42,12 @@ class GenerateCmsPolicy extends Command
                 continue;
             }
 
-            $contents = $filesystem->get(__DIR__ . $stub);
+            $contents = $filesystem->get(__DIR__.$stub);
             $model = (new \ReflectionClass($class));
             $modelName = $model->getShortName();
 
             $policyVariables = [
-                'class' => $modelName . 'Policy',
+                'class' => $modelName.'Policy',
                 'namespacedModel' => $model->getName(),
                 'namespacedUserModel' => (new \ReflectionClass(Admin::class))->getName(),
                 'namespace' => 'App\Policies',
@@ -66,20 +66,20 @@ class GenerateCmsPolicy extends Command
                     'restore' => 'restorePermission',
                     'force-delete' => 'forceDeletePermission',
                 };
-                $contents = Str::replace('{{ ' . $key . ' }}', $permission . ' ' . $modelName, $contents);
+                $contents = Str::replace('{{ '.$key.' }}', $permission.' '.$modelName, $contents);
             }
 
             foreach ($policyVariables as $search => $replace) {
                 if ($modelName == class_basename(Admin::class) && $search == 'namespacedModel') {
                     $contents = Str::replace('use {{ namespacedModel }};', '', $contents);
                 } else {
-                    $contents = Str::replace('{{ ' . $search . ' }}', $replace, $contents);
+                    $contents = Str::replace('{{ '.$search.' }}', $replace, $contents);
                 }
             }
 
-            if (!$filesystem->exists(app_path('Policies/' . $modelName . 'Policy.php'))) {
-                $filesystem->put(app_path('Policies/' . $modelName . 'Policy.php'), $contents);
-                $this->comment('Creating Policy: ' . $modelName);
+            if (! $filesystem->exists(app_path('Policies/'.$modelName.'Policy.php'))) {
+                $filesystem->put(app_path('Policies/'.$modelName.'Policy.php'), $contents);
+                $this->comment('Creating Policy: '.$modelName);
             }
 
         }

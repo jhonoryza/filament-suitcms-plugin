@@ -4,7 +4,6 @@ namespace Fajar\Filament\Suitcms\Resources\AdminResource\Pages;
 
 use Filament\Forms\Components\Component;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Get;
 use Filament\Pages\Auth\EditProfile as AuthEditProfile;
 use Illuminate\Support\Facades\Hash;
 

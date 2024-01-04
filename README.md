@@ -2,7 +2,7 @@
 
 ## Description
 
-This plugin is built on top of [Spatie's Permission](https://spatie.be/docs/laravel-permission/v6/introduction) package. 
+This plugin is built on top of [Spatie's Permission](https://spatie.be/docs/laravel-permission/v6/introduction) package.
 
 Provides Resources for Roles and Permissions
 
@@ -22,9 +22,21 @@ You can install the package via composer:
 
 ```bash
 composer require jhonoryza/filament-suitcms
-php artisan filament-suitcms:install
-php artisan migrate
 ```
+
+install filament-suitcms
+
+```bash
+php artisan filament-suitcms:install
+```
+
+this command will do :
+
+1. publish filament-suitcms config
+2. ask to run migration, if you get asked `Would you like to run the migrations now?` choose `yes`
+3. sync permission data
+4. generate default super admin user, default admin user is `admin@admin.com` with password : `password`
+5. generate default setting data
 
 now you can create filament panel builder using this command :
 

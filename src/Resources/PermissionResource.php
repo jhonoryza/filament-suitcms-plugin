@@ -7,8 +7,8 @@ use Fajar\Filament\Suitcms\Resources\PermissionResource\Pages\ManagePermissions;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables\Table;
 use Filament\Tables;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
 
 class PermissionResource extends Resource
@@ -63,6 +63,7 @@ class PermissionResource extends Resource
     protected function handleRecordCreation(array $data): Model
     {
         $data['guard_name'] = 'web';
+
         return static::getModel()::create($data);
     }
 }
