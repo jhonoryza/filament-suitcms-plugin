@@ -19,12 +19,12 @@ Provides Resources for :
 you need to install this library to use this package
 
 ```bash
-composer require filament/filament
+composer require filament/filament:"^3.1"
 
-composer require spatie/laravel-permission
+composer require spatie/laravel-permission:"^6.3"
 php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
 
-composer require spatie/laravel-medialibrary
+composer require spatie/laravel-medialibrary:"^10.0"
 php artisan vendor:publish --provider="Spatie\MediaLibrary\MediaLibraryServiceProvider"
 ```
 
