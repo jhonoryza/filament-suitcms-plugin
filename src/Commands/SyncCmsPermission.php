@@ -12,7 +12,7 @@ class SyncCmsPermission extends Command
 {
     private mixed $config;
 
-    protected $signature = 'cms:permission-sync';
+    protected $signature = 'cms:permission-sync {option : option is clear or sync}';
 
     protected $description = 'Generates permissions through config cms/permissions.php';
 
@@ -24,7 +24,7 @@ class SyncCmsPermission extends Command
 
     public function handle(): void
     {
-        $choose = select(
+        $choose = $this->argument('option') ?? select(
             label: 'What do you want to do?',
             options: [
                 'clear' => 'Delete All Permissions',
