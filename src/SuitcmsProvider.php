@@ -9,10 +9,12 @@ use Fajar\Filament\Suitcms\Commands\SyncCmsPermission;
 use Fajar\Filament\Suitcms\Models\Admin;
 use Fajar\Filament\Suitcms\Models\Permission;
 use Fajar\Filament\Suitcms\Models\Role;
+use Fajar\Filament\Suitcms\Models\SeoMeta;
 use Fajar\Filament\Suitcms\Models\Setting;
 use Fajar\Filament\Suitcms\Policies\AdminPolicy;
 use Fajar\Filament\Suitcms\Policies\PermissionPolicy;
 use Fajar\Filament\Suitcms\Policies\RolePolicy;
+use Fajar\Filament\Suitcms\Policies\SeoMetaPolicy;
 use Fajar\Filament\Suitcms\Policies\SettingPolicy;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
@@ -25,6 +27,7 @@ class SuitcmsProvider extends PackageServiceProvider
         Role::class => RolePolicy::class,
         Permission::class => PermissionPolicy::class,
         Setting::class => SettingPolicy::class,
+        SeoMeta::class => SeoMetaPolicy::class,
     ];
 
     public function configurePackage(Package $package): void
@@ -34,6 +37,7 @@ class SuitcmsProvider extends PackageServiceProvider
             ->hasMigrations([
                 'create_admins_table',
                 'create_settings_table',
+                'create_seo_metas_table',
                 'create_admin_password_reset_tokens',
             ])
             ->runsMigrations()

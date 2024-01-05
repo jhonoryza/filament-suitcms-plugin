@@ -5,6 +5,7 @@ namespace Fajar\Filament\Suitcms;
 use Fajar\Filament\Suitcms\Resources\AdminResource;
 use Fajar\Filament\Suitcms\Resources\PermissionResource;
 use Fajar\Filament\Suitcms\Resources\RoleResource;
+use Fajar\Filament\Suitcms\Resources\SeoMetaResource;
 use Fajar\Filament\Suitcms\Resources\SettingResource;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
@@ -28,6 +29,7 @@ class SuitcmsToolkit implements Plugin
             RoleResource::class,
             PermissionResource::class,
             SettingResource::class,
+            SeoMetaResource::class,
         ];
         $panel
             ->authGuard('cms')
