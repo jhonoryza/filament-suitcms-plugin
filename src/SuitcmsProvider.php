@@ -54,7 +54,7 @@ class SuitcmsProvider extends PackageServiceProvider
                     ->publishConfigFile()
                     ->askToRunMigrations()
                     ->endWith(function (InstallCommand $com) {
-                        $com->call('cms:permission-sync -n');
+                        $com->call('cms:permission-sync', ['option' => 'sync']);
                         $com->call('cms:admin-generate', [
                             'name' => 'admin',
                             'email' => 'admin@admin.com',
