@@ -35,10 +35,10 @@ class SuitcmsProvider extends PackageServiceProvider
         $package
             ->name('filament-suitcms')
             ->hasMigrations([
-                'create_admins_table',
-                'create_settings_table',
-                'create_seo_metas_table',
-                'create_admin_password_reset_tokens',
+                '0000_00_00_000000_create_admins_table',
+                '0000_00_00_000000_create_settings_table',
+                '0000_00_00_000000_create_seo_metas_table',
+                '0000_00_00_000000_create_admin_password_reset_tokens',
             ])
             ->runsMigrations()
             ->hasConfigFile(['cms/auth-guards', 'cms/auth-providers', 'cms/auth-passwords', 'cms/permissions'])
