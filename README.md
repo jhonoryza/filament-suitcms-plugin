@@ -2,9 +2,17 @@
 
 ## Description
 
-This plugin is built on top of [Spatie's Permission](https://spatie.be/docs/laravel-permission/v6/introduction) package.
+This plugin is provides some filament resources.
 
-Provides Resources for Roles and Permissions
+Provides Resources for :
+
+- Roles and Permissions
+- Admin
+- Edit Profile
+- Setting
+- SeoMeta
+
+![screenshot](./public/sc.png)
 
 ## Dependencies
 
@@ -12,8 +20,12 @@ you need to install this library to use this package
 
 ```bash
 composer require filament/filament
+
 composer require spatie/laravel-permission
 php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
+
+composer require spatie/laravel-medialibrary
+php artisan vendor:publish --provider="Spatie\MediaLibrary\MediaLibraryServiceProvider"
 ```
 
 ## Installation
