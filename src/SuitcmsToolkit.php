@@ -2,6 +2,7 @@
 
 namespace Fajar\Filament\Suitcms;
 
+use Fajar\Filament\Suitcms\Concerns\HasResources;
 use Fajar\Filament\Suitcms\Resources\AdminResource;
 use Fajar\Filament\Suitcms\Resources\PermissionResource;
 use Fajar\Filament\Suitcms\Resources\RoleResource;
@@ -12,6 +13,8 @@ use Filament\Panel;
 
 class SuitcmsToolkit implements Plugin
 {
+    use HasResources;
+
     public static function make(): self
     {
         return new self();
@@ -24,13 +27,7 @@ class SuitcmsToolkit implements Plugin
 
     public function register(Panel $panel): void
     {
-        $resources = [
-            AdminResource::class,
-            RoleResource::class,
-            PermissionResource::class,
-            SettingResource::class,
-            SeoMetaResource::class,
-        ];
+        $resources = $this->getResources();
         $panel
             ->authGuard('cms')
             ->authPasswordBroker('cms')
