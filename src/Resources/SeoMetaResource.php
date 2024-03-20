@@ -2,7 +2,7 @@
 
 namespace Fajar\Filament\Suitcms\Resources;
 
-use Fajar\Filament\Suitcms\Models\SeoMeta;
+use App\Models\SeoMeta;
 use Fajar\Filament\Suitcms\Resources\SeoMetaResource\Pages;
 use Filament\Forms;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;

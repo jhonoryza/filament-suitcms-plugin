@@ -25,7 +25,7 @@ you can disable specific resource using this syntax
 
 this will disable setting resources
 
-another available function 
+another available function
 
 ```php hl_lines="2-5"
 SuitcmsToolkit::make()
@@ -75,7 +75,8 @@ php artisan cms:permission-sync
 php artisan cms:policy-generate
 ```
 
-for admins, roles, permissions, settings and seo_metas resource the policy class already generated and loaded from the package, so you don't need to regenerate.
+for admins, roles, permissions, settings and seo_metas resource the policy class already generated and loaded from the
+package, so you don't need to regenerate.
 
 ## Important
 
@@ -85,17 +86,18 @@ you can add new permission to config file in `config/cms/permissions.php` file
 <?php
 
 return [
-    \Fajar\Filament\Suitcms\Models\Admin::class => ['view-any', 'view', 'create', 'update', 'delete', 'restore', 'force-delete'],
-    \Fajar\Filament\Suitcms\Models\Role::class => ['view-any', 'view', 'create', 'update', 'delete'],
-    \Fajar\Filament\Suitcms\Models\Permission::class => ['view-any', 'view', 'create', 'update', 'delete'],
-    \Fajar\Filament\Suitcms\Models\Setting::class => ['view-any', 'view', 'update', 'create', 'update', 'delete'],
-    \Fajar\Filament\Suitcms\Models\SeoMeta::class => ['view-any', 'view', 'update', 'create', 'update', 'delete'],
+    \App\Models\Admin::class => ['view-any', 'view', 'create', 'update', 'delete', 'restore', 'force-delete'],
+    \App\Models\Role::class => ['view-any', 'view', 'create', 'update', 'delete'],
+    \App\Models\Permission::class => ['view-any', 'view', 'create', 'update', 'delete'],
+    \App\Models\Setting::class => ['view-any', 'view', 'update', 'create', 'update', 'delete'],
+    \App\Models\SeoMeta::class => ['view-any', 'view', 'update', 'create', 'update', 'delete'],
 ];
 ```
 
 then run generate permission and policy command to regenerate permission data and policy class
 
-if you didn't generate policy class your authorization will not works eventhough you have the correct permission and role data to the related admin.
+if you didn't generate policy class your authorization will not work even though you have the correct permission and
+role data to the related admin.
 
 ## Override default resources
 
@@ -107,10 +109,6 @@ first we need to disable like this
 SuitcmsToolkit::make()
     ->settingResource(condition: false);
 ```
-
-then we create model setting using `php artisan make:model Setting`
-
-then adjust the class to extend from `\Fajar\Filament\Suitcms\Models\Setting`
 
 lets generate resource using `php artisan make:filament-resource -G Setting`
 

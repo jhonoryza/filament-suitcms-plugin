@@ -2,7 +2,7 @@
 
 namespace Fajar\Filament\Suitcms\Resources;
 
-use Fajar\Filament\Suitcms\Models\Setting;
+use App\Models\Setting;
 use Fajar\Filament\Suitcms\Resources\SettingResource\Pages;
 use Filament\Forms;
 use Filament\Forms\Components\Grid;
@@ -33,7 +33,7 @@ class SettingResource extends Resource
                         'textarea' => 'textarea',
                     ])->columnSpanFull()
                     ->live()
-                    ->afterStateUpdated(fn (Select $component) => $component
+                    ->afterStateUpdated(fn(Select $component) => $component
                         ->getContainer()
                         ->getComponent('dynamicTypeFields')
                         ->getChildComponentContainer()
@@ -44,7 +44,7 @@ class SettingResource extends Resource
                     ->columnSpanFull()
                     ->maxLength(255),
                 Grid::make(1)
-                    ->schema(fn (Get $get): array => match ($get('type')) {
+                    ->schema(fn(Get $get): array => match ($get('type')) {
                         'text' => [
                             Forms\Components\TextInput::make('value')
                                 ->maxLength(65535)

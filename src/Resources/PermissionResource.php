@@ -2,7 +2,7 @@
 
 namespace Fajar\Filament\Suitcms\Resources;
 
-use Fajar\Filament\Suitcms\Models\Permission;
+use App\Models\Permission;
 use Fajar\Filament\Suitcms\Resources\PermissionResource\Pages\ManagePermissions;
 use Filament\Forms;
 use Filament\Forms\Form;

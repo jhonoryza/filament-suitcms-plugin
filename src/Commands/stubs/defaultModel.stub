@@ -1,0 +1,9 @@
+<?php
+
+namespace App\Models;
+
+use Fajar\Filament\Suitcms\Models\{{ $class }} as Base{{ $class }};
+
+class {{ $class }} extends Base{{ $class }}
+{
+}

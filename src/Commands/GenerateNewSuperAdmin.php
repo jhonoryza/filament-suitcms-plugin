@@ -2,11 +2,10 @@
 
 namespace Fajar\Filament\Suitcms\Commands;
 
-use Fajar\Filament\Suitcms\Models\Admin;
-use Fajar\Filament\Suitcms\Models\Permission;
-use Fajar\Filament\Suitcms\Models\Role;
+use App\Models\Admin;
+use App\Models\Permission;
+use App\Models\Role;
 use Illuminate\Console\Command;
-
 use function Laravel\Prompts\password;
 use function Laravel\Prompts\text;
 
@@ -23,42 +22,47 @@ class GenerateNewSuperAdmin extends Command
     {
         $data = $this->getUserData();
 
-        $superRole = Role::firstOrCreate(['name' => 'superadmin', 'guard_name' => 'cms']);
+        /** @var Role $superRole */
+        $superRole = Role::query()->firstOrCreate(['name' => 'superadmin', 'guard_name' => 'cms']);
         $superRole->syncPermissions(Permission::all());
 
-        $super = Admin::create([
+        /** @var Admin $super */
+        $super = Admin::query()->firstOrCreate([
             'name' => $data['name'],
             'email' => $data['email'],
+        ], [
             'password' => $data['password'],
         ]);
-        $super->assignRole($superRole);
-        $this->info('Super Admin created with mail : '.$super->email);
+        if (!$super->hasRole($superRole)) {
+            $super->syncRoles([$superRole]);
+        }
+        $this->info('Super Admin created with mail : ' . $super->email);
     }
 
     protected function getUserData(): array
     {
         return [
             'name' => $this->argument('name') ?? text(
-                label: 'Name',
-                required: true,
-                default: 'admin'
-            ),
+                    label: 'Name',
+                    default: 'admin',
+                    required: true
+                ),
 
             'email' => $this->argument('email') ?? text(
-                label: 'Email address',
-                default: 'admin@admin.com',
-                required: true,
-                validate: fn (string $email): ?string => match (true) {
-                    ! filter_var($email, FILTER_VALIDATE_EMAIL) => 'The email address must be valid.',
-                    Admin::where('email', $email)->exists() => 'A user with this email address already exists',
-                    default => null,
-                },
-            ),
+                    label: 'Email address',
+                    default: 'admin@admin.com',
+                    required: true,
+                    validate: fn(string $email): ?string => match (true) {
+                        !filter_var($email, FILTER_VALIDATE_EMAIL) => 'The email address must be valid.',
+                        Admin::where('email', $email)->exists() => 'A user with this email address already exists',
+                        default => null,
+                    },
+                ),
 
             'password' => $this->argument('password') ?? password(
-                label: 'Password',
-                required: true,
-            ),
+                    label: 'Password',
+                    required: true,
+                ),
         ];
     }
 }

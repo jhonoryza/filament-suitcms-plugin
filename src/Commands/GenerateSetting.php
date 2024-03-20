@@ -2,7 +2,7 @@
 
 namespace Fajar\Filament\Suitcms\Commands;
 
-use Fajar\Filament\Suitcms\Models\Setting;
+use App\Models\Setting;
 use Illuminate\Console\Command;
 
 class GenerateSetting extends Command

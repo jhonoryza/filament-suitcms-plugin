@@ -1,7 +1,7 @@
 We will use this package to manage database multiple language implementation
 
 ```bash
-composer require richan-fongdasen/laravel-i18n: "^3.2"
+composer require richan-fongdasen/laravel-i18n:"^3.2"
 ```
 
 full documentation is [here](https://laravel-i18n.richan.id/package-installation)

@@ -2,9 +2,9 @@
 
 namespace Fajar\Filament\Suitcms\Commands;
 
-use Fajar\Filament\Suitcms\Models\Admin;
-use Fajar\Filament\Suitcms\Models\Permission;
-use Fajar\Filament\Suitcms\Models\Role;
+use App\Models\Admin;
+use App\Models\Permission;
+use App\Models\Role;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\File;
@@ -33,21 +33,14 @@ class GenerateCmsPolicy extends Command
         // Ensure the policies folder exists
         File::ensureDirectoryExists(app_path('Policies/'));
 
-        $skip = [Admin::class, Role::class, Permission::class];
-
         foreach ($this->config as $class => $permissions) {
 
-            // skip admin, role and permission class
-            if (in_array($class, $skip)) {
-                continue;
-            }
-
-            $contents = $filesystem->get(__DIR__.$stub);
+            $contents = $filesystem->get(__DIR__ . $stub);
             $model = (new \ReflectionClass($class));
             $modelName = $model->getShortName();
 
             $policyVariables = [
-                'class' => $modelName.'Policy',
+                'class' => $modelName . 'Policy',
                 'namespacedModel' => $model->getName(),
                 'namespacedUserModel' => (new \ReflectionClass(Admin::class))->getName(),
                 'namespace' => 'App\Policies',
@@ -66,20 +59,20 @@ class GenerateCmsPolicy extends Command
                     'restore' => 'restorePermission',
                     'force-delete' => 'forceDeletePermission',
                 };
-                $contents = Str::replace('{{ '.$key.' }}', $permission.' '.$modelName, $contents);
+                $contents = Str::replace('{{ ' . $key . ' }}', $permission . ' ' . $modelName, $contents);
             }
 
             foreach ($policyVariables as $search => $replace) {
                 if ($modelName == class_basename(Admin::class) && $search == 'namespacedModel') {
                     $contents = Str::replace('use {{ namespacedModel }};', '', $contents);
                 } else {
-                    $contents = Str::replace('{{ '.$search.' }}', $replace, $contents);
+                    $contents = Str::replace('{{ ' . $search . ' }}', $replace, $contents);
                 }
             }
 
-            if (! $filesystem->exists(app_path('Policies/'.$modelName.'Policy.php'))) {
-                $filesystem->put(app_path('Policies/'.$modelName.'Policy.php'), $contents);
-                $this->comment('Creating Policy: '.$modelName);
+            if (!$filesystem->exists(app_path('Policies/' . $modelName . 'Policy.php'))) {
+                $filesystem->put(app_path('Policies/' . $modelName . 'Policy.php'), $contents);
+                $this->comment('Creating Policy: ' . $modelName);
             }
 
         }

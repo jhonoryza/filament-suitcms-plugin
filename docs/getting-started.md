@@ -6,7 +6,8 @@ install [filament package](https://filamentphp.com/docs/3.x/panels/installation)
 composer require filament/filament:"^3.1"
 ```
 
-you need to install package [spatie permission](https://spatie.be/index.php/docs/laravel-permission/v6/introduction) and [spatie media library](https://spatie.be/docs/laravel-medialibrary/v10/introduction) to use this package
+you need to install package [spatie permission](https://spatie.be/index.php/docs/laravel-permission/v6/introduction)
+and [spatie media library](https://spatie.be/docs/laravel-medialibrary/v10/introduction) to use this package
 
 ```bash
 composer require spatie/laravel-permission:"^6.3"
@@ -31,10 +32,40 @@ php artisan filament-suitcms:install
 this command will do :
 
 1. publish filament-suitcms config to folder `config/cms`
-2. ask to run migration, if you get asked `Would you like to run the migrations now?` choose `yes`, this will run migration for media and roles permission
-3. sync permission data
-4. generate default super admin user, default admin user is `admin@admin.com` with password : `password`
-5. generate default setting data
+2. ask to run migration, if you get asked `Would you like to run the migrations now?` choose `yes`, this will run
+   migration for media and roles permission
+3. add default suitcms model
+4. sync permission data
+5. generate some policies
+6. generate default super admin user, default admin user is `admin@admin.com` with password : `password`
+7. generate default setting data
+
+adjust `config/auth.php` add this
+
+```php
+    'guards' => [
+        'cms' => [
+            'driver' => 'session',
+            'provider' => 'cms',
+        ],
+    ],
+
+    'providers' => [
+        'cms' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
+        ],
+    ],
+
+    'passwords' => [
+        'cms' => [
+            'provider' => 'cms',
+            'table' => 'admin_password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+    ],
+```
 
 now you can create filament panel builder using this command :
 

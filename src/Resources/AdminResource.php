@@ -2,7 +2,7 @@
 
 namespace Fajar\Filament\Suitcms\Resources;
 
-use Fajar\Filament\Suitcms\Models\Admin;
+use App\Models\Admin;
 use Fajar\Filament\Suitcms\Resources\AdminResource\Pages\CreateAdmin;
 use Fajar\Filament\Suitcms\Resources\AdminResource\Pages\EditAdmin;
 use Fajar\Filament\Suitcms\Resources\AdminResource\Pages\ListAdmins;
@@ -32,17 +32,17 @@ class AdminResource extends Resource
                 Forms\Components\TextInput::make('email')
                     ->email()
                     ->required()
-                    ->disabled(fn (string $context): bool => $context === 'edit')
+                    ->disabled(fn(string $context): bool => $context === 'edit')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('password')
-                    ->visible(fn (string $context): bool => $context === 'create')
+                    ->visible(fn(string $context): bool => $context === 'create')
                     ->confirmed()
                     ->password()
-                    ->dehydrated(fn ($state) => filled($state)) //don't want to overwrite the existing password if the field is empty
-                    ->required(fn (string $context): bool => $context === 'create') //require only on create
+                    ->dehydrated(fn($state) => filled($state)) //don't want to overwrite the existing password if the field is empty
+                    ->required(fn(string $context): bool => $context === 'create') //require only on create
                     ->maxLength(255),
                 Forms\Components\TextInput::make('password_confirmation')
-                    ->visible(fn (string $context): bool => $context === 'create')
+                    ->visible(fn(string $context): bool => $context === 'create')
                     ->password()
                     ->maxLength(255),
                 Forms\Components\Select::make('role')

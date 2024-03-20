@@ -2,10 +2,9 @@
 
 namespace Fajar\Filament\Suitcms\Commands;
 
-use Fajar\Filament\Suitcms\Models\Permission;
+use App\Models\Permission;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
-
 use function Laravel\Prompts\select;
 
 class SyncCmsPermission extends Command
@@ -54,8 +53,8 @@ class SyncCmsPermission extends Command
         foreach ($this->config as $class => $permissions) {
             foreach ($permissions as $permission) {
                 $modelName = (new \ReflectionClass($class))->getShortName();
-                Permission::findOrCreate($permission.' '.$modelName, 'cms');
-                $this->comment('new permission created: '.$permission.' '.$modelName);
+                Permission::findOrCreate($permission . ' ' . $modelName, 'cms');
+                $this->comment('new permission created: ' . $permission . ' ' . $modelName);
             }
         }
     }

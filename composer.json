@@ -1,42 +1,42 @@
 {
-    "name": "jhonoryza/filament-suitcms",
-    "description": "suitcms filament panel plugin",
-    "type": "library",
-    "license": "MIT",
-    "autoload": {
-        "psr-4": {
-            "Fajar\\Filament\\Suitcms\\": "src/"
-        }
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Fajar\\Filament\\Suitcms\\SuitcmsProvider"
-            ]
-        }
-    },
-    "authors": [
-        {
-            "name": "fajar sidik priatna",
-            "email": "fajar@suitmedia.com"
-        }
-    ],
-    "minimum-stability": "stable",
-    "require": {
-        "php": "^8.1",
-        "illuminate/support": "^10.0",
-        "illuminate/auth": "^10.0",
-        "spatie/laravel-package-tools": "^1.0",
-        "filament/support": "^3.0",
-        "filament/filament": "^3.1",
-        "spatie/laravel-permission": "^6.3",
-        "laravel/prompts": "^0.1.14",
-        "spatie/laravel-medialibrary": "^10.0.0",
-        "filament/spatie-laravel-media-library-plugin": "^3.1"
-    },
-    "require-dev": {
-        "orchestra/testbench-core": "^8.19.0",
-        "laravel/pint": "^1.10",
-        "orchestra/testbench": "^8.0"
+  "name": "jhonoryza/filament-suitcms",
+  "description": "suitcms filament panel plugin",
+  "type": "library",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Fajar\\Filament\\Suitcms\\": "src/"
     }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Fajar\\Filament\\Suitcms\\FilamentSuitcmsPluginProvider"
+      ]
+    }
+  },
+  "authors": [
+    {
+      "name": "fajar sidik priatna",
+      "email": "fajar@suitmedia.com"
+    }
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "php": "^8.1",
+    "illuminate/support": "^10.0",
+    "illuminate/auth": "^10.0",
+    "spatie/laravel-package-tools": "^1.0",
+    "filament/support": "^3.0",
+    "filament/filament": "^3.1",
+    "spatie/laravel-permission": "^6.3",
+    "laravel/prompts": "^0.1.14",
+    "spatie/laravel-medialibrary": "^10.0.0",
+    "filament/spatie-laravel-media-library-plugin": "^3.1"
+  },
+  "require-dev": {
+    "orchestra/testbench-core": "^8.19.0",
+    "laravel/pint": "^1.10",
+    "orchestra/testbench": "^8.0"
+  }
 }

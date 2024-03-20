@@ -2,8 +2,8 @@
 
 namespace Fajar\Filament\Suitcms\Resources;
 
+use App\Models\Role;
 use Fajar\Filament\Suitcms\Forms\Components\CheckboxPermissionRole;
-use Fajar\Filament\Suitcms\Models\Role;
 use Fajar\Filament\Suitcms\Resources\RoleResource\Pages;
 use Filament\Forms;
 use Filament\Forms\Form;
