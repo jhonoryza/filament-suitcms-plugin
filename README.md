@@ -28,7 +28,7 @@ Provides Resources for :
 
 ## Documentation
 
-[Full documentation is here](https://filament-suitcms-plugin-docs.vercel.app)
+[Full documentation is here](http://static-blog.labkita.my.id/filament-suitcms-plugin)
 
 ## Security
 
